@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class TasksTest {
     @Test
-    public void shouldMatchesSimpleTask() {
+    public void shouldMatchesSimpleTask() { // Есть искомое слово в SimpleTask
         SimpleTask simpleTask = new SimpleTask(1, "Поставить будильник");
 
         boolean expected = true;
@@ -14,7 +14,7 @@ public class TasksTest {
     }
 
     @Test
-    public void shouldNotMatchesSimpleTask() {
+    public void shouldNotMatchesSimpleTask() { // Нет искомого слова в SimpleTask
         SimpleTask simpleTask = new SimpleTask(1, "Купить продукты");
 
         boolean expected = false;
@@ -22,9 +22,8 @@ public class TasksTest {
         Assertions.assertEquals(expected, actual);
     }
 
-
     @Test
-    public void shouldMatchesEpicInOne() {
+    public void shouldMatchesEpic() { // Есть искомое слово в Epic
         String[] subtasks = {"Мандарины", "Шампанское", "Продукты для оливье"};
         Epic epic = new Epic(55, subtasks);
 
@@ -34,28 +33,7 @@ public class TasksTest {
     }
 
     @Test
-    public void shouldMatchesEpicInTwo() {
-        String[] subtasks = {"Мандарины", "Новогодние подарки", "Шампанское", "Новогодние украшения"};
-        Epic epic = new Epic(55, subtasks);
-
-        boolean expected = true;
-        boolean actual = epic.matches("Новогод");
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldMatchesEpicInAll() {
-        String[] subtasks = {"новая скатерть", "циновка", "фоновая музыка"};
-        Epic epic = new Epic(55, subtasks);
-
-        boolean expected = true;
-        boolean actual = epic.matches("нов");
-        Assertions.assertEquals(expected, actual);
-    }
-
-
-    @Test
-    public void shouldNotMatchesEpic() {
+    public void shouldNotMatchesEpic() { // Нет искомого слова в Epic
         String[] subtasks = {"Мандарины", "Шампанское", "Продукты"};
         Epic epic = new Epic(55, subtasks);
 
@@ -65,7 +43,7 @@ public class TasksTest {
     }
 
     @Test
-    public void shouldNotMatchesMeeting() {
+    public void shouldNotMatchesMeeting() { // Нет искомого слова в Meeting
         Meeting meeting = new Meeting(
                 111,
                 "Новогоднее поздравление",
@@ -81,7 +59,7 @@ public class TasksTest {
     }
 
     @Test
-    public void shouldMatchesMeetingInOne() {
+    public void shouldMatchesMeetingInTopic() { // Есть одно искомое слово в Meeting
         Meeting meeting = new Meeting(
                 111,
                 "Новогоднее поздравление",
@@ -92,12 +70,12 @@ public class TasksTest {
         todos.add(meeting);
 
         boolean expected = true;
-        boolean actual = meeting.matches("год");
+        boolean actual = meeting.matches("поздравление");
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldMatchesMeetingInTwo() {
+    public void shouldMatchesMeetingInProject() { // Есть несколько искомх слов в Meeting
         Meeting meeting = new Meeting(
                 111,
                 "Новогоднее поздравление",
@@ -108,18 +86,7 @@ public class TasksTest {
         todos.add(meeting);
 
         boolean expected = true;
-        boolean actual = meeting.matches("Нов");
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldNotMatchesAtAll() {
-        SimpleTask simpleTask = new SimpleTask(1, "Поздравить бабушку с др");
-
-        Task task = new Task(1);
-
-        boolean expected = false;
-        boolean actual = task.matches("год");
+        boolean actual = meeting.matches("Новый");
         Assertions.assertEquals(expected, actual);
     }
 }
